@@ -1,0 +1,46 @@
+{
+  "sniff_interface": "eth0",
+  "global_bpf": "udp port 9003 or tcp port 9332",
+  "log_level": "INFO",
+  "wake": {
+    "interface": "eth0",
+    "target_mac": "aa:bb:cc:dd:ee:ff",
+    "cooldown_seconds": 60,
+    "etherwake_path": "/usr/sbin/etherwake",
+    "extra_args": []
+  },
+  "rules": [
+    {
+      "name": "roon-sood-discovery",
+      "enabled": true,
+      "protocol": "udp",
+      "source_ips": [],
+      "dest_ips": [],
+      "source_ports": [],
+      "dest_ports": [9003],
+      "payload_startswith_ascii": "SOOD",
+      "payload_startswith_hex": null,
+      "payload_contains_ascii": ["Roon"],
+      "payload_contains_hex": [],
+      "require_raw_payload": true,
+      "wake_enabled": true,
+      "notes": "Example rule for Roon discovery traffic. Tighten with source_ips once you know your client IPs."
+    },
+    {
+      "name": "generic-tcp-bootstrap-example",
+      "enabled": false,
+      "protocol": "tcp",
+      "source_ips": [],
+      "dest_ips": [],
+      "source_ports": [],
+      "dest_ports": [9332],
+      "payload_startswith_ascii": null,
+      "payload_startswith_hex": null,
+      "payload_contains_ascii": [],
+      "payload_contains_hex": [],
+      "require_raw_payload": false,
+      "wake_enabled": true,
+      "notes": "Disabled example. Some applications attempt TCP connects immediately after discovery."
+    }
+  ]
+}

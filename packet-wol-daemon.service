@@ -1,0 +1,16 @@
+[Unit]
+Description=Packet-triggered Wake-on-LAN daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/packet-wol-daemon/wol_daemon.py --config /etc/packet-wol-daemon/config.json
+Restart=on-failure
+RestartSec=5
+User=root
+Group=root
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
